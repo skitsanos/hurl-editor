@@ -31,6 +31,8 @@ const page = () =>
     const handleEditorDidMount = (editor, monaco) =>
     {
         editorRef.current = editor;
+
+        //data-enable-grammarly="false"
     };
 
     const handleEditorChange = (value, event) =>

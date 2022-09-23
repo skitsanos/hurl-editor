@@ -1,7 +1,9 @@
 import AboutDialog from '@/components/AboutDialog';
 import Settings from '@/components/Settings';
 import {fileDialogOptions} from '@/defaults';
-import {Button, Divider, Drawer, Layout, Modal, Space, Tooltip} from '@arco-design/web-react';
+import {Button, ConfigProvider, Divider, Drawer, Layout, Modal, Space, Tooltip} from '@arco-design/web-react';
+
+import enUS from '@arco-design/web-react/es/locale/en-US';
 import {
     IconFile,
     IconFolder,
@@ -124,77 +126,80 @@ export default () =>
     //https://github.com/matprec/rust-font-loader/blob/master/examples/list-fonts.rs
     //https://stackoverflow.com/questions/304319/is-there-an-equivalent-of-which-on-the-windows-command-line
 
-    return <Layout>
-        <Layout.Header>
-            <div className={'toolbar dashed-bottom'}>
-                <Space>
-                    <Tooltip content={'New file'}>
-                        <Button icon={<IconFile/>}
-                                onClick={newFile}/>
-                    </Tooltip>
+    return <ConfigProvider locale={enUS}
+                           size={'small'}>
+        <Layout>
+            <Layout.Header>
+                <div className={'toolbar dashed-bottom'}>
+                    <Space>
+                        <Tooltip content={'New file'}>
+                            <Button icon={<IconFile/>}
+                                    onClick={newFile}/>
+                        </Tooltip>
 
 
-                    <Tooltip content={'Open file'}>
-                        <Button icon={<IconFolder/>}
-                                loading={state.fileIsLoading}
-                                onClick={openFile}/>
-                    </Tooltip>
+                        <Tooltip content={'Open file'}>
+                            <Button icon={<IconFolder/>}
+                                    loading={state.fileIsLoading}
+                                    onClick={openFile}/>
+                        </Tooltip>
 
-                    <Tooltip content={'Save file'}>
-                        <Button icon={<IconSave/>}
-                                loading={state.fileIsSaving}
-                                onClick={saveFile}/>
-                    </Tooltip>
+                        <Tooltip content={'Save file'}>
+                            <Button icon={<IconSave/>}
+                                    loading={state.fileIsSaving}
+                                    onClick={saveFile}/>
+                        </Tooltip>
 
-                    <Divider type={'vertical'}/>
+                        <Divider type={'vertical'}/>
 
-                    <Button icon={<IconRightCircle/>}/>
+                        <Button icon={<IconRightCircle/>}/>
 
-                    <Divider type={'vertical'}/>
+                        <Divider type={'vertical'}/>
 
-                    <Button icon={<IconSettings/>}
-                            onClick={() => setState({drawerVisible: true})}/>
+                        <Button icon={<IconSettings/>}
+                                onClick={() => setState({drawerVisible: true})}/>
 
-                    <Button icon={<IconQuestionCircle/>}
-                            onClick={() => Modal.info({
-                                title: 'About...',
-                                icon: <IconQuestionCircle/>,
-                                okText: 'Close',
-                                content: <AboutDialog/>
-                            })}/>
-                </Space>
-            </div>
-        </Layout.Header>
+                        <Button icon={<IconQuestionCircle/>}
+                                onClick={() => Modal.info({
+                                    title: 'About...',
+                                    icon: <IconQuestionCircle/>,
+                                    okText: 'Close',
+                                    content: <AboutDialog/>
+                                })}/>
+                    </Space>
+                </div>
+            </Layout.Header>
 
-        <Layout.Content className={'app-workspace'}>
-            <Outlet context={{
-                file: state.currentFile,
-                fileContent: state.currentFileContent,
+            <Layout.Content className={'app-workspace'}>
+                <Outlet context={{
+                    file: state.currentFile,
+                    fileContent: state.currentFileContent,
 
-                onChange: editorContentChanged
-            }}/>
+                    onChange: editorContentChanged
+                }}/>
 
-            <Drawer visible={state.drawerVisible}
-                    style={{
-                        width: 400
-                    }}
-                    title={'Settings'}
-                    cancelText={'Cancel'}
-                    okText={'Save'}
-                    onOk={() =>
-                    {
-                        setState({drawerVisible: false});
-                    }}
-                    onCancel={() =>
-                    {
-                        setState({drawerVisible: false});
-                    }}>
-                <Settings/>
-            </Drawer>
-        </Layout.Content>
+                <Drawer visible={state.drawerVisible}
+                        style={{
+                            width: 400
+                        }}
+                        title={'Settings'}
+                        cancelText={'Cancel'}
+                        okText={'Save'}
+                        onOk={() =>
+                        {
+                            setState({drawerVisible: false});
+                        }}
+                        onCancel={() =>
+                        {
+                            setState({drawerVisible: false});
+                        }}>
+                    <Settings/>
+                </Drawer>
+            </Layout.Content>
 
-        <Layout.Footer>
-            HurlEditor v.1.0.0beta ({state.platform}_{state.arch})
-        </Layout.Footer>
-    </Layout>;
+            <Layout.Footer>
+                HurlEditor v.1.0.0beta ({state.platform}_{state.arch})
+            </Layout.Footer>
+        </Layout>
+    </ConfigProvider>;
 };
