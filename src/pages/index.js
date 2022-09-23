@@ -3,9 +3,13 @@ import theme from '@/hurl/theme';
 import tokenizer from '@/hurl/tokenizer';
 import Editor from '@monaco-editor/react';
 import {useRef} from 'react';
+import {useOutletContext} from 'umi';
 
 const page = () =>
 {
+    const context = useOutletContext() || {};
+    const {file, fileContent, onChange} = context;
+
     const editorRef = useRef(null);
 
     const handleEditorWillMount = monaco =>
@@ -31,7 +35,10 @@ const page = () =>
 
     const handleEditorChange = (value, event) =>
     {
-        console.log(value);
+        if (onChange)
+        {
+            onChange(value);
+        }
     };
 
     return <Editor defaultLanguage={'hurl'}
@@ -43,8 +50,8 @@ const page = () =>
                            enabled: false
                        }
                    }}
-        /*defaultValue={`GET https://api.skitsanos.com/api/utils/headers\n#hello\n[Asserts]`}*/
-                   defaultValue={Array.from({length: 20}, () => 'GET https://api.skitsanos.com/api/utils/headers\n#hello\n[Asserts]\n\n\n').join('\n')}
+                   value={fileContent}
+        /*defaultValue={Array.from({length: 20}, () => 'GET https://api.skitsanos.com/api/utils/headers\n#hello\n[Asserts]\n\n\n').join('\n')}*/
                    onChange={handleEditorChange}
                    beforeMount={handleEditorWillMount}
                    onMount={handleEditorDidMount}/>;
