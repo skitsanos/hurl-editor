@@ -158,7 +158,7 @@ export default () =>
                     <Button icon={<IconQuestionCircle/>}
                             onClick={() => Modal.info({
                                 title: 'About...',
-                                icon: null,
+                                icon: <IconQuestionCircle/>,
                                 okText: 'Close',
                                 content: <AboutDialog/>
                             })}/>
