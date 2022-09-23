@@ -5,9 +5,20 @@
             "@": [
                 "src"
             ],
+            "@/*": [
+                "src/*"
+            ],
             "umi": [
                 "src/.umi/exports"
             ]
         }
-    }
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "dist",
+        "node_modules",
+        "**/node_modules"
+    ]
 }

@@ -62,7 +62,8 @@
                 "url": "splashscreen.html",
                 "label": "splashscreen",
                 "center": true,
-                "title": "Hurl Editor"
+                "title": "Hurl Editor",
+                "visible": false
             },
             {
                 "fullscreen": false,
@@ -70,7 +71,7 @@
                 "resizable": true,
                 "title": "Hurl Editor",
                 "width": 800,
-                "visible": false
+                "visible": true
             }
         ]
     }

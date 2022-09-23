@@ -1,3 +1,5 @@
+@import "@arco-design/web-react/dist/css/index.less";
+
 @import (css) "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&display=swap";
 @import (css) "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap";
 
@@ -10,24 +12,8 @@ body {
   font-family: @font-family;
 }
 
-.arco-page-header-title {
-  text-transform: uppercase;
-}
-
-.ace_gutter {
-  background-color: #fdfdfd !important;
-}
-
-.ace_cursor {
-  background-color: ligten(purple, 40%);
-}
-
 #root {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 1px;
+  height: 100vh;
   display: flex;
 }
 
@@ -38,4 +24,20 @@ body {
 
 .dashed-bottom {
   border-bottom-style: dashed;
+  border-bottom-width: 1px;
+}
+
+.app-workspace {
+  flex: 1;
+  padding-top: 10px;
+
+  .monaco-editor {
+    overflow: unset;
+  }
+}
+
+.toolbar {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
 }
