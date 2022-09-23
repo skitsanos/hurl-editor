@@ -55,11 +55,22 @@
         },
         "windows": [
             {
+                "width": 400,
+                "height": 200,
+                "decorations": false,
+                "fullscreen": false,
+                "url": "splashscreen.html",
+                "label": "splashscreen",
+                "center": true,
+                "title": "Hurl Editor"
+            },
+            {
                 "fullscreen": false,
                 "height": 600,
                 "resizable": true,
-                "title": "HurlEditor",
-                "width": 800
+                "title": "Hurl Editor",
+                "width": 800,
+                "visible": false
             }
         ]
     }
