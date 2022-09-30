@@ -1,7 +1,7 @@
 import AboutDialog from '@/components/AboutDialog';
 import Settings from '@/components/Settings';
 import {fileDialogOptions} from '@/defaults';
-import {Button, ConfigProvider, Divider, Drawer, Layout, Modal, Space, Tooltip} from '@arco-design/web-react';
+import {Button, ConfigProvider, Drawer, Layout, Modal, Space} from '@arco-design/web-react';
 
 import enUS from '@arco-design/web-react/es/locale/en-US';
 import {
@@ -127,45 +127,40 @@ export default () =>
     //https://stackoverflow.com/questions/304319/is-there-an-equivalent-of-which-on-the-windows-command-line
 
     return <ConfigProvider locale={enUS}
-                           size={'small'}>
+                           size={'large'}>
         <Layout>
             <Layout.Header>
                 <div className={'toolbar dashed-bottom'}>
                     <Space>
-                        <Tooltip content={'New file'}>
+                        <Button.Group>
                             <Button icon={<IconFile/>}
                                     onClick={newFile}/>
-                        </Tooltip>
 
-
-                        <Tooltip content={'Open file'}>
                             <Button icon={<IconFolder/>}
                                     loading={state.fileIsLoading}
                                     onClick={openFile}/>
-                        </Tooltip>
 
-                        <Tooltip content={'Save file'}>
                             <Button icon={<IconSave/>}
                                     loading={state.fileIsSaving}
                                     onClick={saveFile}/>
-                        </Tooltip>
+                        </Button.Group>
 
-                        <Divider type={'vertical'}/>
+                        <Button.Group>
+                            <Button icon={<IconRightCircle/>}/>
+                        </Button.Group>
 
-                        <Button icon={<IconRightCircle/>}/>
+                        <Button.Group>
+                            <Button icon={<IconSettings/>}
+                                    onClick={() => setState({drawerVisible: true})}/>
 
-                        <Divider type={'vertical'}/>
-
-                        <Button icon={<IconSettings/>}
-                                onClick={() => setState({drawerVisible: true})}/>
-
-                        <Button icon={<IconQuestionCircle/>}
-                                onClick={() => Modal.info({
-                                    title: 'About...',
-                                    icon: <IconQuestionCircle/>,
-                                    okText: 'Close',
-                                    content: <AboutDialog/>
-                                })}/>
+                            <Button icon={<IconQuestionCircle/>}
+                                    onClick={() => Modal.info({
+                                        title: 'About...',
+                                        icon: <IconQuestionCircle/>,
+                                        okText: 'Close',
+                                        content: <AboutDialog/>
+                                    })}/>
+                        </Button.Group>
                     </Space>
                 </div>
             </Layout.Header>

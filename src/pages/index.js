@@ -2,12 +2,24 @@ import keywords from '@/hurl/keywords';
 import theme from '@/hurl/theme';
 import tokenizer from '@/hurl/tokenizer';
 import Editor from '@monaco-editor/react';
-import {useRef} from 'react';
+import {useSetState} from 'ahooks';
+import {useCallback, useRef} from 'react';
 import {useOutletContext} from 'umi';
 
-const page = () =>
+/*monaco.config({
+ paths: {
+ vs: "https://cdn.jsdelivr.net/npm/monaco-editor@0.20.0/min/vs"
+ }
+ });*/
+
+const Page = ({isActive, saved}) =>
 {
     const context = useOutletContext() || {};
+
+    const [state, setState] = useSetState({
+        changed: saved
+    });
+
     const {file, fileContent, onChange} = context;
 
     const editorRef = useRef(null);
@@ -28,20 +40,20 @@ const page = () =>
         monaco.editor.defineTheme('hurl', theme);
     };
 
-    const handleEditorDidMount = (editor, monaco) =>
-    {
-        editorRef.current = editor;
-
-        //data-enable-grammarly="false"
-    };
-
-    const handleEditorChange = (value, event) =>
+    const handleEditorChange = useCallback((value/*, event*/) =>
     {
         if (onChange)
         {
             onChange(value);
         }
-    };
+
+        setState({changed: true});
+    }, []);
+
+    const handleEditorDidMount = useCallback((editor/*, monaco*/) =>
+    {
+        editorRef.current = editor;
+    }, [handleEditorChange]);
 
     return <Editor defaultLanguage={'hurl'}
                    theme={'hurl'}
@@ -59,4 +71,4 @@ const page = () =>
                    onMount={handleEditorDidMount}/>;
 };
 
-export default page;
+export default Page;
